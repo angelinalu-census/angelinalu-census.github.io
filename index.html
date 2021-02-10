@@ -1,3 +1,6 @@
+<!-- To start a local server: python3 -m http.server -->
+<!-- Connect through: http://localhost:8000 -->
+<!-- https://stackoverflow.com/questions/10752055/cross-origin-requests-are-only-supported-for-http-error-when-loading-a-local -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -17,6 +20,24 @@
     </head>
     <body>
         <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
-        
+        <script src="d3.v3.min.js?v=3.2.8"></script>
+
+        <script type="text/javascript"charset="utf-8">
+            d3.text("EEOALL10W_C21.csv", function(data) {
+                var parsedCSV = d3.csv.parseRows(data);
+
+                var container = d3.select("body")
+                    .append("table")
+
+                    .selectAll("tr")
+                        .data(parsedCSV).enter()
+                        .append("tr")
+
+                    .selectAll("td")
+                        .data(function(d) { return d; }).enter()
+                        .append("td")
+                        .text(function(d) { return d; });
+            });
+        </script>
     </body>
 </html>
